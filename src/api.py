@@ -33,8 +33,10 @@ def ask_question(request: QuestionRequest):
         collection=collection,
         n_results=request.n_results,
     )
+    answer = answer_question(request.question, relevant_papers)
     return {
-        "question": request.question,
+        "question"  : request.question,
+        "answer"    : answer,
         "sources": [
             {"title": p["title"], "similarity": round(1-p["distance"],4)}
             for p in relevant_papers
