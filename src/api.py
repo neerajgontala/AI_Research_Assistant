@@ -50,12 +50,15 @@ def ask_question(request: QuestionRequest):
     return {
         "question"  : request.question,
         "answer"    : answer,
-        "sources": [
-            {"title": p["title"], 
-             "similarity": round(1-p["distance"],4)
-            }
-            for p in relevant_papers
-        ]
+       "sources": [
+    {
+        "title": p["title"],
+        "authors": p["authors"],
+        "link": p["link"],
+        "similarity": round(1-p["distance"],4)
+    }
+    for p in relevant_papers
+]
     }
     
     
