@@ -49,6 +49,7 @@
 
 import streamlit as st
 import requests
+import os
 
 # ── PAGE CONFIG (must be the first Streamlit call) ───────────────────────────
 # WHY st.set_page_config()?
@@ -61,7 +62,7 @@ st.set_page_config(
     layout="wide",
 )
 
-API_URL = "http://127.0.0.1:8000"   # WHY a constant? one place to change when you deploy
+API_URL = os.getenv("API_URL","https://ai-research-assistant-tzia.onrender.com")  # WHY a constant? one place to change when you deploy
 
 
 # ── SESSION STATE SETUP ───────────────────────────────────────────────────────
