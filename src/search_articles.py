@@ -64,12 +64,10 @@ def build_vector_store(papers: list)-> chromadb.Collection:
     """
     print(f"\n🔢 Setting up embedding model: {EMBEDDING_MODEL}\n")
 
-    # WHY embedding_functions?
-    # ChromaDB has a built-in wrapper for sentence-transformers
-    # that handles it internally — avoids compatibility issues
-    ef = embedding_functions.SentenceTransformerEmbeddingFunction(
-        model_name=EMBEDDING_MODEL
-    )
+    # WHY the default embedding function instead of SentenceTransformer?
+    # It uses onnxruntime instead of torch — much smaller memory footprint,
+    # no GPU libraries pulled in, fits comfortably on free-tier hosting.
+    ef = embedding_functions.DefaultEmbeddingFunction()
 
     client = chromadb.PersistentClient(path=CHROMA_FOLDER) #saves chromdb to disk.
 
