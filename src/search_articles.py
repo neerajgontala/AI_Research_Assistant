@@ -62,7 +62,8 @@ def build_vector_store(papers: list)-> chromadb.Collection:
     It's a vector database — stores embeddings and lets you find the
     most similar ones to any query. Like a search engine for meaning.
     """
-    print(f"\n🔢 Setting up embedding model: {EMBEDDING_MODEL}\n")
+    print(f"\n🔢 Setting up embedding model: DefaultEmbeddingFunction\n")
+
 
     # WHY the default embedding function instead of SentenceTransformer?
     # It uses onnxruntime instead of torch — much smaller memory footprint,
