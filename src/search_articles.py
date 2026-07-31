@@ -45,8 +45,22 @@ def load_papers(data_folder: str) -> list:
         else:
             continue
         all_papers.extend(papers)
-    print(f"Loaded {len(all_papers)} papers from {len(json_files)} files")
-    return all_papers
+
+    deduped = []
+    seen = set()
+    for paper in all_papers:
+        key = paper.get("link") or paper.get("title")
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(paper)
+
+    duplicate_count = len(all_papers) - len(deduped)
+    if duplicate_count:
+        print(f"Removed {duplicate_count} duplicate paper(s) found across files")
+
+    print(f"Loaded {len(deduped)} unique papers from {len(json_files)} files")
+    return deduped
 
 
 def build_vector_store(papers: list)-> chromadb.Collection:
@@ -108,7 +122,9 @@ def build_vector_store(papers: list)-> chromadb.Collection:
             }
         )
         
-        ids.append(f"paper_{i}")
+        # stable id (arxiv link) instead of positional index, so re-embedding
+        # the same paper upserts in place rather than creating a duplicate entry
+        ids.append(link if link else f"paper_{i}")
         
     print("Generating embiddings (first run takes 1-2 mins)...")
     # embeddings = model.encode(documents,show_progress_bar=True).tolist()
