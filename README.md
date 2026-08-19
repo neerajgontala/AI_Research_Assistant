@@ -78,6 +78,9 @@ cd AI_Research_Assistant/src
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+# Note: if your clone lives in a cloud-synced folder (OneDrive/Dropbox/Google Drive),
+# create the venv outside it instead (e.g. python -m venv ~/.venvs/ai_research_assistant)
+# to avoid file-locking and sync slowdowns.
 
 # 2. Add your Anthropic API key
 echo "ANTHROPIC_API_KEY=your_key_here" > .env
