@@ -34,7 +34,7 @@ arXiv API → fetch_articles.py → data/*.json
                          app.py (Streamlit UI)
 ```
 
-- **Retrieval:** ChromaDB vector store (17 deduplicated papers) with `DefaultEmbeddingFunction` (onnxruntime-based — no torch, chosen to fit within Render's free-tier 512MB RAM limit)
+- **Retrieval:** ChromaDB vector store (22 deduplicated papers) with `DefaultEmbeddingFunction` (onnxruntime-based — no torch, chosen to fit within Render's free-tier 512MB RAM limit)
 - **Generation:** Anthropic Claude API (`claude-haiku-4-5`)
 - **Backend:** FastAPI, deployed on Render (free tier)
 - **Frontend:** Streamlit, deployed on Streamlit Community Cloud
@@ -53,6 +53,10 @@ src/
 ├── requirements.txt
 ├── data/                  # Fetched paper JSON
 └── chroma_db/             # Persisted vector store
+Dockerfile.backend         # FastAPI image
+Dockerfile.frontend        # Streamlit image
+docker-compose.yml         # Runs backend (:8000) + frontend (:8501)
+.env                       # ANTHROPIC_API_KEY (not committed)
 ```
 
 ---
@@ -75,15 +79,13 @@ Built incrementally in weekly phases, testing each layer before adding the next:
 # 1. Clone and set up
 git clone https://github.com/neerajgontala/AI_Research_Assistant.git
 cd AI_Research_Assistant/src
-python -m venv venv
-source venv/bin/activate
+# Create the venv outside the project (cloud-synced folders like OneDrive break venvs):
+python -m venv ~/.venvs/ai_research_assistant
+source ~/.venvs/ai_research_assistant/bin/activate
 pip install -r requirements.txt
-# Note: if your clone lives in a cloud-synced folder (OneDrive/Dropbox/Google Drive),
-# create the venv outside it instead (e.g. python -m venv ~/.venvs/ai_research_assistant)
-# to avoid file-locking and sync slowdowns.
 
-# 2. Add your Anthropic API key
-echo "ANTHROPIC_API_KEY=your_key_here" > .env
+# 2. Add your Anthropic API key (project root; docker-compose reads it there too)
+echo "ANTHROPIC_API_KEY=your_key_here" > ../.env
 
 # 3. Fetch papers, build the index (first-time setup)
 python fetch_articles.py
@@ -101,6 +103,14 @@ By default, `app.py` points at the live Render deployment. To point it at your l
 ```bash
 export API_URL=http://localhost:8000
 ```
+
+### Or with Docker
+
+```bash
+docker compose up --build   # needs ANTHROPIC_API_KEY in the root .env
+```
+
+Backend: http://localhost:8000 · Frontend: http://localhost:8501
 
 ---
 
