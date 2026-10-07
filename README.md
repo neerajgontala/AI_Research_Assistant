@@ -18,20 +18,17 @@ Ask natural-language questions about a curated set of AI research papers (e.g. *
 ```
 arXiv API → fetch_articles.py → data/*.json
                                      │
-                                     ▼
-                          summarize_articles.py
-                          (Anthropic Claude API)
-                                     │
-                                     ▼
-                          search_articles.py
-                          (ChromaDB + embeddings)
-                                     │
-                                     ▼
-                              api.py (FastAPI)
-                          /ask · /search · /
-                                     │
-                                     ▼
-                         app.py (Streamlit UI)
+                  ┌──────────────────┴──────────────────┐
+                  ▼                                     ▼
+        search_articles.py                    summarize_articles.py
+        (ChromaDB + embeddings)               (Anthropic Claude API)
+                  │                                     │
+                  ▼                                     ▼
+          api.py (FastAPI)                    data/summaries_*.json
+          /ask · /search · /                  (standalone output,
+                  │                            not used by retrieval)
+                  ▼
+          app.py (Streamlit UI)
 ```
 
 - **Retrieval:** ChromaDB vector store (22 deduplicated papers) with `DefaultEmbeddingFunction` (onnxruntime-based — no torch, chosen to fit within Render's free-tier 512MB RAM limit)
@@ -113,7 +110,7 @@ export API_URL=http://localhost:8000
 docker compose up --build   # needs ANTHROPIC_API_KEY in the root .env
 ```
 
-`chroma_db/` is gitignored but copied into the image from `src/`, so run step 3 above first — otherwise the container starts with an empty index.
+`chroma_db/` is gitignored, so the backend builds the index from `src/data/` on first startup (1–2 min); the first `docker compose up` is slow.
 
 Backend: http://localhost:8000 · Frontend: http://localhost:8501
 
