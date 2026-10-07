@@ -13,8 +13,9 @@ from langchain_core.output_parsers import StrOutputParser #Extracts plain text f
 load_dotenv()
 
 
-DATA_FOLDER = "data"
-CHROMA_FOLDER = "chroma_db" # ChromaDB saves its data here on disk so you dont re-embed everytime you run
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # anchor paths to this file, not the cwd
+DATA_FOLDER = os.path.join(BASE_DIR, "data")
+CHROMA_FOLDER = os.path.join(BASE_DIR, "chroma_db") # ChromaDB saves its data here on disk so you dont re-embed everytime you run
 
 #small fast and free, runs locally my mac.
 EMBEDDING_MODEL = "all-MiniLM-L6-v2" #converts text -> 384-dimensonal vectors.

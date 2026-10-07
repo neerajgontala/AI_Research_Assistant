@@ -160,7 +160,7 @@ if __name__ =="__main__":
     print("AI Research Assistant - LLM Summarizer")
     print("=" * 55)
     
-    DATA_FOLDER = "data"
+    DATA_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
     
     # To read all JSON files
     articles = load_all_articles(DATA_FOLDER) 

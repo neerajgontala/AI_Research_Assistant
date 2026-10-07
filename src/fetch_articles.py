@@ -73,11 +73,12 @@ def fetch_arxiv_articles(topic, max_results=10):
 
 def save_to_json(articles, topic):
     # Create a data/ folder if it doesn't exist
-    os.makedirs("data", exist_ok=True)
+    data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")  # anchor to this file, not the cwd
+    os.makedirs(data_dir, exist_ok=True)
 
     # Build the filename using today's date + time
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-    filename = f"data/{topic.replace(' ', '_')}_{timestamp}.json"
+    filename = os.path.join(data_dir, f"{topic.replace(' ', '_')}_{timestamp}.json")
 
     # Wrap the articles in a neat package with metadata
     output = {
