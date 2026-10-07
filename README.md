@@ -52,11 +52,12 @@ src/
 ├── app.py                 # Streamlit chat frontend
 ├── requirements.txt
 ├── data/                  # Fetched paper JSON
-└── chroma_db/             # Persisted vector store
+└── chroma_db/             # Persisted vector store (generated, gitignored)
 Dockerfile.backend         # FastAPI image
 Dockerfile.frontend        # Streamlit image
 docker-compose.yml         # Runs backend (:8000) + frontend (:8501)
 .env                       # ANTHROPIC_API_KEY (not committed)
+.gitignore                 # Ignores .env, chroma_db/, venvs
 ```
 
 ---
@@ -88,7 +89,9 @@ pip install -r requirements.txt
 echo "ANTHROPIC_API_KEY=your_key_here" > ../.env
 
 # 3. Fetch papers, build the index (first-time setup)
+#    The topic and max_results are hardcoded at the bottom of fetch_articles.py — edit them there.
 python fetch_articles.py
+python summarize_articles.py   # optional: writes Claude summaries to data/
 python search_articles.py
 
 # 4. Run the backend
@@ -110,6 +113,8 @@ export API_URL=http://localhost:8000
 docker compose up --build   # needs ANTHROPIC_API_KEY in the root .env
 ```
 
+`chroma_db/` is gitignored but copied into the image from `src/`, so run step 3 above first — otherwise the container starts with an empty index.
+
 Backend: http://localhost:8000 · Frontend: http://localhost:8501
 
 ---
@@ -129,7 +134,9 @@ Backend: http://localhost:8000 · Frontend: http://localhost:8501
 
 ## Changelog
 
-- Deduplicated the ChromaDB collection — removed 3 duplicate paper entries (20 → 17 papers loaded), verified with a robot-manipulation query returning distinct results
+- Added Dockerfiles and `docker-compose.yml` for the backend and frontend; moved `.env` to the project root; stopped tracking generated `chroma_db/`
+- Added neural-networks papers; the collection now holds 22 deduplicated papers
+- Deduplicated the ChromaDB collection — removed duplicate paper entries, verified with a robot-manipulation query returning distinct results
 - Fixed an `os.getenv()` argument-order bug in `app.py` where `API_URL` was passed as the key instead of the default, causing it to resolve to `None`
 - Deployed frontend to Streamlit Community Cloud; full pipeline now live end-to-end
 
@@ -137,4 +144,4 @@ Backend: http://localhost:8000 · Frontend: http://localhost:8501
 
 ## Tech stack
 
-`Python` · `FastAPI` · `Streamlit` · `ChromaDB` · `LangChain` · `Anthropic Claude API` · `arXiv API` · `Render` · `Streamlit Community Cloud`
+`Python` · `FastAPI` · `Streamlit` · `ChromaDB` · `LangChain` · `Anthropic Claude API` · `arXiv API` · `Docker` · `Render` · `Streamlit Community Cloud`
