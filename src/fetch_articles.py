@@ -95,7 +95,7 @@ def save_to_json(articles, topic):
 
 if __name__ == "__main__":
     # --- Run it ---
-    topic = "big data"     
+    topic = "neural networks"     
     try:
         articles = fetch_arxiv_articles(topic, max_results=5)
         save_to_json(articles, topic)

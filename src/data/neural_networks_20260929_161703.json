@@ -1,0 +1,75 @@
+{
+  "topic": "neural networks",
+  "fetched_at": "2026-09-29T16:17:03.489284+00:00",
+  "total": 5,
+  "articles": [
+    {
+      "title": "PDMD: Projected Distribution Matching Distillation for Video Diffusion Models",
+      "summary": "Modern video diffusion models require tens of denoising evaluations over long spatiotemporal token sequences. Distribution Matching Distillation (DMD) reduces the number of function evaluations (NFE) to just a few. However, DMD samples can degrade during training, exhibiting progressive oversaturation and artifacts. We trace this instability to critic errors, which enter successive student updates and accumulate over time. We introduce Projected Distribution Matching Distillation (PDMD) to filter critic errors. PDMD projects out the component of the DMD update parallel to the student-critic endpoint residual. At a fixed noisy query, we prove that this residual is an unbiased estimate of the critic's endpoint error. Under high-dimensional assumptions, this projection removes a constant fraction of critic error while discarding only a vanishing fraction of ideal DMD signal. Empirically, the projection stabilizes training and improves sample quality where DMD degrades and develops unnatural textures. PDMD requires only a one-line code change to DMD, with no extra loss, network, data, model pass, or multi-stage training. With Wan2.1, PDMD achieves a VBench total score of 83.73 at 4 NFE, surpassing matched DMD by 1.03 points. On MiniMax-H3 joint video-audio generation, PDMD achieves a VideoGen-Eval visual total score of 83.17, 0.41 points above the strongest distilled baseline. PDMD also achieves the best performance on all six audio metrics among the compared 4-NFE models. Qualitative comparisons and user studies favor PDMD over the distilled baselines in visual quality, motion, and audio quality. Code and models are available at https://pdmd2026.github.io/.",
+      "authors": [
+        "Zimo Wang",
+        "Junkun Yuan",
+        "Angtian Wang",
+        "Haotian Yang",
+        "Canyu Zhang",
+        "Siyuan Yuan",
+        "Xingchang Huang",
+        "Bo Liu",
+        "Yizhi Wang",
+        "Yiding Yang",
+        "Chongyang Ma",
+        "Gordon Guocheng Qian"
+      ],
+      "published": "2026-09-28T17:59:52Z",
+      "link": "https://arxiv.org/abs/2609.35768v1"
+    },
+    {
+      "title": "Hamiltonicity of mildly pseudorandom regular graphs",
+      "summary": "We show that if an $(n,d,\u03bb)$-graph satisfies $\u03bb\\leq (1-\u03b4)d$ and $d\\gg \u03b4^{-6}(\\log n)^{3}$ for some $\u03b4>0$, then it is Hamiltonian. A qualitatively similar result was recently proven by Brada\u010d and Janzer. Our proof here is shorter and gives better quantitative bounds. \\par In our proof, as in earlier work of Ferber, Han, Mao, and Vershynin, we use a random matrix inequality to show that a mild spectral gap is typically preserved after randomly sampling an appropriate proportion of the vertices. This allows us to deduce that typical balanced bipartite subgraphs of pseudorandom graphs contain perfect matchings. To convert a collection of perfect matchings into a Hamilton cycle, we use a variant of the sorting network method.",
+      "authors": [
+        "Alp M\u00fcyesser"
+      ],
+      "published": "2026-09-28T17:59:30Z",
+      "link": "https://arxiv.org/abs/2609.35766v1"
+    },
+    {
+      "title": "Covariant Contrastive Learning for Uncertainty-Aware Anomaly Detection",
+      "summary": "Machine-learning-based anomaly detection (AD) offers a promising, model-agnostic alternative to traditional LHC analyses, allowing to search for many signals at once. Recent advances in representation learning motivate the use of neural embeddings to map high-dimensional physics observables into low-dimensional latent spaces better suited to statistical inference. However, the propagation of systematic uncertainty in embedded spaces remains poorly understood, severely limiting the application of these methods to real LHC analyses. We address this gap with a machine learning strategy that uses a likelihood-based regularization to improve the structure of embedded spaces. Building on previous work using supervised contrastive learning for physics-aware embeddings, our approach trains them jointly with a downstream parameterized classification task that incorporates continuous uncertainties as nuisance parameters. This method returns a latent space that covaries predictably with systematic shifts, and a model of such distortions that can be exploited in the downstream statistical test for anomaly detection. Using simulated CMS Level-1 trigger data, we show that our method successfully models continuous uncertainties in a 4D latent space with a linear parametric downstream classifier, improving both the interpretability and robustness of the statistical anomaly detection task. This framework offers a general way to study and control systematic uncertainties in latent spaces, opening the way to a new scalable statistical analysis workflow for anomaly detection at the LHC, and other high energy physics experiments.",
+      "authors": [
+        "Shelley Tong",
+        "Philip Harris",
+        "Gaia Grosso"
+      ],
+      "published": "2026-09-28T17:59:02Z",
+      "link": "https://arxiv.org/abs/2609.35755v1"
+    },
+    {
+      "title": "Perfect Born Sampling of Symmetric Thermal Tensor Network for Quantum Lattice Models",
+      "summary": "Accurate calculations of quantum lattice models at low temperatures constitute a major challenge in many-body physics. Stochastic sampling of tensor-network states offers a promising route to tackle this problem; however, existing schemes have long faced a fundamental dilemma---sampling efficiency and symmetry acceleration \\textit{cannot} be achieved simultaneously. Here we propose a perfect Born sampling approach for thermal tensor networks, which performs importance sampling directly from the purified density matrix via the Born rule and incorporates Abelian and non-Abelian symmetries by sampling symmetry quantum numbers. We benchmark the method, realized as both stochastic matrix product states (stoMPS) and stochastic projected entangled pair states (stoPEPS), on large-scale quantum lattice models. Using stoMPS, we accurately simulate the square-lattice Hubbard model on cylinders up to width $W=10$, and study the triangular-lattice Hubbard model down to $T/t = 1/64$, revealing scalar chiral order at half filling and kinetic ferromagnetism upon electron doping. We further extend the stoMPS method to compute finite-temperature quantum dynamics, as demonstrated by the optical conductivity of the Hubbard model, and generalize it to stoPEPS, as showcased on the $20\\times20$ square-lattice quantum Ising model at its quantum critical point. Our method combines high sampling efficiency with full symmetry acceleration, and can be used as a state-of-the-art framework for studying both equilibrium and dynamical properties down to ultralow temperatures.",
+      "authors": [
+        "Jianxin Gao",
+        "Qiaoyi Li",
+        "Yuan Gao",
+        "Chuanshu Xu",
+        "Guoliang Wu",
+        "Su Yi",
+        "Bin-Bin Chen",
+        "Wei Li"
+      ],
+      "published": "2026-09-28T17:58:21Z",
+      "link": "https://arxiv.org/abs/2609.35754v1"
+    },
+    {
+      "title": "Neural Harmonic Measure Operator",
+      "summary": "We introduce Neural Harmonic Measure Operator (NHMO), a neural solver for elliptic PDE problems on variable-shape domains. The harmonic measure of a domain is the boundary probability distribution that, integrated against any boundary data, returns the Dirichlet Laplace solution. It depends only on the geometry, not on the boundary data. NHMO parameterizes the density of this measure as a transformer-based boundary kernel supervised by Walk-on-Spheres exit samples, so one trained kernel handles different boundary values on a shape with no retraining. We extend it to Poisson via a classical decomposition, with an auxiliary network amortizing the source-induced correction and avoiding the singular volume quadrature that breaks direct evaluation. At inference, new boundary values and new sources both yield PDE solutions by re-integration against the fitted kernel and lift, with no retraining. NHMO improves over four prior baselines on the MCB-B 3D variable-shape Poisson benchmark across all five categories, and is competitive with major neural-operator baselines on a controlled 2D testbed.",
+      "authors": [
+        "Jinjin He",
+        "Sinan Wang",
+        "Yuchen Sun",
+        "Bo Zhu"
+      ],
+      "published": "2026-09-28T17:58:13Z",
+      "link": "https://arxiv.org/abs/2609.35752v1"
+    }
+  ]
+}
