@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
@@ -11,6 +13,7 @@ from search_articles import (
 )
 
 app = FastAPI()
+logger = logging.getLogger("uvicorn.error")
 
 print("Loading papers and vector store...")
 papers = load_papers(DATA_FOLDER)
@@ -46,7 +49,11 @@ def ask_question(request: QuestionRequest):
         collection=collection,
         n_results=request.n_results,
     )
-    answer = answer_question(request.question, relevant_papers)
+    try:
+        answer = answer_question(request.question, relevant_papers)
+    except Exception as e:
+        logger.exception("answer_question failed")
+        raise HTTPException(status_code=502, detail=f"LLM call failed: {type(e).__name__}: {e}")
     return {
         "question"  : request.question,
         "answer"    : answer,

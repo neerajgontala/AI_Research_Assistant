@@ -197,4 +197,9 @@ if question:
                 })
 
             except requests.exceptions.RequestException as e:
-                st.error(f"Couldn't reach the backend: {e}")
+                resp = getattr(e, "response", None)
+                try:
+                    detail = resp.json()["detail"]
+                except Exception:
+                    detail = e
+                st.error(f"Couldn't reach the backend: {detail}")
